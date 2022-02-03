@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeControler;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,17 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/about', function () {
-    return '<h1> About html page</h1>';
-});
-
-Route::get('/contact', function () {
-    return '<h1> contact page</h1>';
-});
+//link to the HomeController methods
+Route::get('/', [HomeControler::class, 'index']);
+Route::get('/about', [HomeControler::class, 'about']);
+Route::get('/contact', [HomeControler::class, 'contact']);
 
 Route::get('/store/{category?}/{item?}', function ($category=null, $item=null) {
     //? meaning that these parameters are optional
