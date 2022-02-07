@@ -15,9 +15,10 @@ use App\Http\Controllers\HomeControler;
 */
 
 //link to the HomeController methods
-Route::get('/', [HomeControler::class, 'index']);
-Route::get('/about', [HomeControler::class, 'about']);
-Route::get('/contact', [HomeControler::class, 'contact']);
+//name was assigned to this route, it is home controller and index page
+Route::get('/', [HomeControler::class, 'index'])->name('home.index');
+Route::get('/about', [HomeControler::class, 'about'])->name('home.about');
+Route::get('/contact', [HomeControler::class, 'contact'])->name('home.contact');
 
 Route::get('/store/{category?}/{item?}', function ($category=null, $item=null) {
     //? meaning that these parameters are optional
