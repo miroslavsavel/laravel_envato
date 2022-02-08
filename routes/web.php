@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeControler;
+use App\Http\Controllers\GuitarsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,8 @@ use App\Http\Controllers\HomeControler;
 Route::get('/', [HomeControler::class, 'index'])->name('home.index');
 Route::get('/about', [HomeControler::class, 'about'])->name('home.about');
 Route::get('/contact', [HomeControler::class, 'contact'])->name('home.contact');
+
+Route::resource('guitars', GuitarsController::class);
 
 Route::get('/store/{category?}/{item?}', function ($category=null, $item=null) {
     //? meaning that these parameters are optional
