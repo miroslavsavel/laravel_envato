@@ -6,6 +6,15 @@ use Illuminate\Http\Request;
 
 class GuitarsController extends Controller
 {
+    private static function getData(){
+        return [
+            ['id'=> 1, 'name' => 'American Standard Strat', 'brand' => 'Fender'],
+            ['id'=> 2, 'name' => 'Starla 2', 'brand' => 'PRS'],
+            ['id'=> 3, 'name' => 'Explorer', 'brand' => 'Gibson'],
+            ['id'=> 4, 'name' => 'Talman', 'brand' => 'Ibanez'],
+        ];
+      }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +25,10 @@ class GuitarsController extends Controller
         // dispalay all guitars in DB
         //GET request
         //it is in guitars folder
-        return view('guitars.index');
+        return view('guitars.index', [
+            'guitars' => self::getData(),
+            'userInput' => '<Script>alert("hello")</script>'
+        ]);
     }
 
     /**
