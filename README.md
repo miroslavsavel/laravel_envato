@@ -1,66 +1,118 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# začnem týmito dvoma
+https://www.parthpatel.net/laravel-tutorial-for-beginner/
+https://www.youtube.com/watch?v=AGE3wRKljkw
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+a nasledne
+https://www.youtube.com/watch?v=wDCY277XBh8
 
-## About Laravel
+instalacia composer 6:29 vtedy sa spristupni command laravel
+je mozna aj instalacia docker
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Place ~/.composer/vendor/bin directory path in your environment variable PATH
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+nainstalujem laravel:
+composer global require “laravel/installer”
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Once installed, you can create project simply by
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Going to desired folder
+Shift + right click and select Open command prompt here
+Execute -- laravel new projectname
 
-## Laravel Sponsors
+teraz 
+cd todo
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+composer install
 
-### Premium Partners
+php artisan key:generate
+//vygenerovat nejake kluce pre aplikaciu??
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+php artisan serve
+//spusti beziacu instanciu
 
-## Contributing
+kedze sme vytvorili uz laravel project, ideme nainstalovat auth modul
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+composer require laravel/jetstream
+php artisan jetstream:install livewire
 
-## Code of Conduct
+nainstalujem nodejs ktoreho sucastou je aj npm
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+npm install && npm run dev
 
-## Security Vulnerabilities
+toto ked idem cez proxy tak to zamrzne na 
+\ idealTree:todo: sill idealTree buildDeps
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+idem cez dirty
 
-## License
+--tu sa asi nieco dogabalo
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# robim teraz video tutorial
+https://www.youtube.com/watch?v=AGE3wRKljkw
+
+subor web.php kde su vymenovane routy, tu som vpisal nove
+
+php artisan make:controller HomeControler
+
+# introducing layouts
+vytvorim layout.blade.php
+vlozim sem cely obsah about.blade.php
+
+do layutu vlozim sekciu script, tento javascript chcem aby sa objavil iba na contact stranke
+
+# working with static resources
+/public/
+vytvorim folder css
+a v nom subor site.css
+
+do tohto suboru vyberiem obsah style navigation v layout.blade.php
+1:00:33 url function
+url()
+
+# generating url 
+route() function
+pomenujeme si jednotlive routes v subore web.php
+a potom layout.blade.php si zmenim odkazy v navigacii
+
+# organizing views
+php artisan make:controller GuitarsController --resource
+vytvori v zlozke HTTP/Controllers novy kontroler
+
+resource - single type of data
+CRUD methods for resource
+
+here is resource guitar, resp. information about guitar
+
+pozriem si vsetky CRUD metody, idem vytvorit view pre index metodu
+
+v zlozke Views vytvorim priecinky podla controllerov, v tomto pripade guitars
+
+v guitars controller musime zmenit index na guitars.index, lebo inak by vratilo hlavnu stranku
+pridame routes v subore web.php
+
+# blade directives
+pracujeme iba so statickymi datami teraz
+
+# showing and linking data
+id = unique identifier ako parameter metody show
+pracujeme v GuitarsController
+
+vytvorim novy view v zlozke guitars s nazvom show.blade.php
+
+upravim aj index.blade.php aby nazov gitary obsahoval hypertextovy odkaz
+
+Missing required parameter for [Route: guitars.show] [URI: guitars/{guitar}] [Missing parameter: guitar]. (View:
+- toto mi hovori, ze metoda show ma este dalsi parameter
+zmenime teda v guitarscontrollery nazov parametru metody show z id na guitars
+
+a nasledne upravime index.blade.php z <a href="{{route('guitars.show')}}">{{$guitar['name']}}</a>
+na:
+<a href="{{route('guitars.show', ['guitar' => $guitar['id']])}}">{{$guitar['name']}}</a>
+
+???? route metoda
+
+# Setting up the database
+open .env file
+create DB for this starter project called laravel_envato
+now it is empty, but we will use artisan to generate tables
