@@ -58,10 +58,22 @@ class GuitarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($guitar)
     {
         //fetch propriate record from db
         //GET
+        $guitars = self::getData();
+        //it is multidimensional array
+        $index = array_search($guitar, array_column($guitars, 'id'));
+
+        if($index===false)
+        {
+            //if index is exactly false and not 0
+            abort(404);
+        }
+        return view('guitars.show', [
+            'guitar' => $guitars[$index]
+        ]);
     }
 
     /**

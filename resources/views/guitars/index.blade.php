@@ -7,14 +7,15 @@
         @foreach($guitars as $guitar)
             <div>
                 <h3>
-                    {{$guitar['name']}}
-                    <ul>
-                        <li>
-                            Mady by: {{$guitar['brand']}}
-                        </li>
-                    </ul>
+                    <!-- route method will create route for every /guitars path, in this example .show -->
+                    <a href="{{route('guitars.show', ['guitar' => $guitar['id']])}}">{{$guitar['name']}}</a>
                 </h3>
-            </div>
+                <ul>
+                    <li>
+                        Mady by: {{$guitar['brand']}}
+                    </li>
+                </ul>
+                </div>
         @endforeach
     @else
         <h2>There are no guitars to display</h2>
