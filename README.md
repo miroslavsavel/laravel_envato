@@ -116,3 +116,26 @@ na:
 open .env file
 create DB for this starter project called laravel_envato
 now it is empty, but we will use artisan to generate tables
+
+## creating migrations and models
+migration ´=production tool, rollback changes in DB
+
+creating migration
+creating model ´this is the code that interact and works with data
+php artisan make:migration --help
+the name for model is Guitar = it is convention
+//
+
+php artisan make:model Guitar --migration
+
+//inside the folder database/migrations  is created new migration
+in the new file, we can define how should our table looks like
+>> check documentation for avaible methods
+
+before we run our migration look at our model
+/app/Models/Guitar.php
+
+php artisan migrate
+//this will run all the migrations
+//it will create tables in mysql DB as it was set in the .env file
+// only the structure of database is made, without data of course
