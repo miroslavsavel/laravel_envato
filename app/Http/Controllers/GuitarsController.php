@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//include our model for Guitar
+use App\Models\Guitar;
 
 class GuitarsController extends Controller
 {
@@ -25,8 +27,11 @@ class GuitarsController extends Controller
         // dispalay all guitars in DB
         //GET request
         //it is in guitars folder
+
+            // 'guitars' => self::getData(),
+            //with method all we are now reading all data from database
         return view('guitars.index', [
-            'guitars' => self::getData(),
+            'guitars' => Guitar::all(),
             'userInput' => '<Script>alert("hello")</script>'
         ]);
     }
@@ -39,6 +44,7 @@ class GuitarsController extends Controller
     public function create()
     {
         //GET
+        return view('guitars.create');
     }
 
     /**
@@ -50,6 +56,17 @@ class GuitarsController extends Controller
     public function store(Request $request)
     {
         //POST - here we create resource in DB
+        $guitar = new Guitar();
+
+        $guitar -> name = $request->input('guitar-name');
+        $guitar -> brand = $request->input('brand');
+        $guitar -> year_made = $request->input('year');
+
+        $guitar -> save();
+
+        //we want redirect
+        return redirect()->route('guitars.index');
+
     }
 
     /**
