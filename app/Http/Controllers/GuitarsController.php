@@ -44,6 +44,7 @@ class GuitarsController extends Controller
     public function create()
     {
         //GET
+        //guitars/create
         return view('guitars.create');
     }
 
@@ -55,12 +56,25 @@ class GuitarsController extends Controller
      */
     public function store(Request $request)
     {
+        //strip_tags because you should ever trust user input
+        //but user can also provide invalid value for input, ie. blank form
+        //client side validation can be circumvented!!! out app is the gatekeeper
+        $request->validate(
+            [
+                'guitar-name'=> 'required',
+                'brand'=> 'required',
+                'year'=> ['required','integer'],
+            ]
+            );
+
+
         //POST - here we create resource in DB
         $guitar = new Guitar();
 
-        $guitar -> name = $request->input('guitar-name');
-        $guitar -> brand = $request->input('brand');
-        $guitar -> year_made = $request->input('year');
+
+        $guitar -> name = strip_tags($request->input('guitar-name'));
+        $guitar -> brand = strip_tags($request->input('brand'));
+        $guitar -> year_made = strip_tags($request->input('year'));
 
         $guitar -> save();
 

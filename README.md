@@ -149,3 +149,23 @@ create creat.blade.php and paste html tags for form
 add use App\Model\Guitar;  into GuitarsController
 
 next we are going to crrate a new instance of guitar -> implement method store in GuitarsController
+
+# validating user input
+add function strip_tags() into the GuitarsController store method
+validate()
+
+in the create.blade.php
+add error output for displaying when user provide bad input
+@error('year')
+            <div class="form-error">
+                {{$message}}
+            </div>
+        @enderror
+
+we also edit css - site.css because we want red font for error
+
+now when we enter only invalid year, we lost other right values - solution
+special function that will get us old value fot that field
+old()
+create.blade.php
+
