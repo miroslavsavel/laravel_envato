@@ -169,3 +169,18 @@ special function that will get us old value fot that field
 old()
 create.blade.php
 
+# Updating data
+here we will be working on guitarscontroller.php
+
+start with show method because it shows hardcoded data
+
+for edit method we want display different view
+edit view will be clone of create view
+here we can use array syntax for value -> value="{{ $guitar['name]}}
+but here we use object reference 
+so replace the old() function
+
+we have to change also route 
+<form class="form bg-white p-6 border-1" method="POST" action="{{ route('guitars.update')}}">
+and supply parameter what will be changed
+

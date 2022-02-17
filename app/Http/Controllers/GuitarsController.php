@@ -91,19 +91,11 @@ class GuitarsController extends Controller
      */
     public function show($guitar)
     {
-        //fetch propriate record from db
-        //GET
-        $guitars = self::getData();
-        //it is multidimensional array
-        $index = array_search($guitar, array_column($guitars, 'id'));
-
-        if($index===false)
-        {
-            //if index is exactly false and not 0
-            abort(404);
-        }
+        //fetch data from database, query the model
+        //we use find(), with parameter ID and it will return if is in DB or not
+        //or in this case is better findOrFail()
         return view('guitars.show', [
-            'guitar' => $guitars[$index]
+            'guitar' => Guitar::findOrFail($guitar)
         ]);
     }
 
@@ -113,9 +105,12 @@ class GuitarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($guitar)
     {
-        //GET show 
+        //GET show
+        return view('guitars.edit', [
+            'guitar' => Guitar::findOrFail($guitar)
+        ]); 
     }
 
     /**
@@ -125,10 +120,33 @@ class GuitarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $guitar)
     {
         //updating an item
         //POST, PUT, PATCH
+
+        //first we have to fetch the data
+        $request->validate(
+            [
+                'guitar-name'=> 'required',
+                'brand'=> 'required',
+                'year'=> ['required','integer'],
+            ]
+            );
+
+
+        //POST - here we create resource in DB
+        $record = Guitar::findOrFail($guitar);
+
+
+        $record -> name = strip_tags($request->input('guitar-name'));
+        $record -> brand = strip_tags($request->input('brand'));
+        $record -> year_made = strip_tags($request->input('year'));
+
+        $record -> save();
+
+        //we want redirect
+        return redirect()->route('guitars.show', $guitar);
     }
 
     /**
