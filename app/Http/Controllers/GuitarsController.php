@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //include our model for Guitar
 use App\Models\Guitar;
+//using type hints and request class
+use App\Http\Requests\GuitarFormRequest;
 
 class GuitarsController extends Controller
 {
@@ -54,27 +56,21 @@ class GuitarsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GuitarFormRequest $request)
     {
         //strip_tags because you should ever trust user input
         //but user can also provide invalid value for input, ie. blank form
         //client side validation can be circumvented!!! out app is the gatekeeper
-        $request->validate(
-            [
-                'guitar-name'=> 'required',
-                'brand'=> 'required',
-                'year'=> ['required','integer'],
-            ]
-            );
+        $data = $request->validated();
 
 
         //POST - here we create resource in DB
         $guitar = new Guitar();
 
 
-        $guitar -> name = strip_tags($request->input('guitar-name'));
-        $guitar -> brand = strip_tags($request->input('brand'));
-        $guitar -> year_made = strip_tags($request->input('year'));
+        $guitar -> name = $data['guitar-name'];
+        $guitar -> brand = $data['brand'];
+        $guitar -> year_made = $data['year'];
 
         $guitar -> save();
 
@@ -88,14 +84,15 @@ class GuitarsController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * Typehinting with GUitar
      */
-    public function show($guitar)
+    public function show(Guitar $guitar)
     {
         //fetch data from database, query the model
         //we use find(), with parameter ID and it will return if is in DB or not
         //or in this case is better findOrFail()
         return view('guitars.show', [
-            'guitar' => Guitar::findOrFail($guitar)
+            'guitar' => $guitar
         ]);
     }
 
@@ -105,11 +102,11 @@ class GuitarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($guitar)
+    public function edit(Guitar $guitar)
     {
         //GET show
         return view('guitars.edit', [
-            'guitar' => Guitar::findOrFail($guitar)
+            'guitar' => $guitar
         ]); 
     }
 
@@ -120,33 +117,22 @@ class GuitarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $guitar)
+    public function update(GuitarFormRequest $request, Guitar $guitar)
     {
         //updating an item
         //POST, PUT, PATCH
-
-        //first we have to fetch the data
-        $request->validate(
-            [
-                'guitar-name'=> 'required',
-                'brand'=> 'required',
-                'year'=> ['required','integer'],
-            ]
-            );
+        $data = $request->validated();
 
 
         //POST - here we create resource in DB
-        $record = Guitar::findOrFail($guitar);
+        $guitar -> name = $data['guitar-name'];
+        $guitar -> brand = $data['brand'];
+        $guitar -> year_made = $data['year'];
 
-
-        $record -> name = strip_tags($request->input('guitar-name'));
-        $record -> brand = strip_tags($request->input('brand'));
-        $record -> year_made = strip_tags($request->input('year'));
-
-        $record -> save();
+        $guitar -> save();
 
         //we want redirect
-        return redirect()->route('guitars.show', $guitar);
+        return redirect()->route('guitars.show', $guitar->id);
     }
 
     /**

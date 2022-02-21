@@ -184,3 +184,30 @@ we have to change also route
 <form class="form bg-white p-6 border-1" method="POST" action="{{ route('guitars.update')}}">
 and supply parameter what will be changed
 
+
+# using type hints and requests classes
+- removing duplicates from code, method findOrFail is used at theree places
+Typehinting
+type hint for parameter
+https://stackoverflow.com/questions/37864772/can-someone-give-me-a-definition-of-type-hinting-for-laravel-5-framework
+
+//try to debug this, look for update method parameter $guitar, it is object?
+
+2:10:00
+we can build our custom request used for handling guitar form requests
+
+php artisan make:request GuitarFormRequest
+this creates a new class for reauest, and we dont have to use strip function, but do validation in our new class for request
+-> it cerates new folder inside app/http/Requests folder
+
+change authorize() method to return true, 
+
+we also implements another method inside GuitarFormRequest class
+prepareForValidation(){ this will strip tml tags from our request
+
+now we have to only import class into controller
+
+difference between validate and validated method
+
+we will alter the store and the update method
+
